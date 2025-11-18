@@ -34,7 +34,7 @@ export const generateSpiritualCopy = async (
     const ai = new GoogleGenAI({
       apiKey: process.env.API_KEY,
       httpOptions: {
-        baseUrl: "http://gemini-proxy.lau93.com",
+        baseUrl: "https://gemini-proxy.lau93.com",
       },
     });
     const response = await ai.models.generateContent({
