@@ -1,4 +1,3 @@
-
 import { GoogleGenAI } from "@google/genai";
 
 const SYSTEM_INSTRUCTION = `You are a "Short Sentence Spiritual Copy Generator".
@@ -24,15 +23,22 @@ Style Examples (for style only, do not copy):
 Output Format:
 - Output ONLY the copy itself. No explanations, no titles, no quotation marks.`;
 
-export const generateSpiritualCopy = async (prompt: string): Promise<string> => {
+export const generateSpiritualCopy = async (
+  prompt: string
+): Promise<string> => {
   if (!process.env.API_KEY) {
     throw new Error("API_KEY environment variable not set");
   }
 
   try {
-    const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+    const ai = new GoogleGenAI({
+      apiKey: process.env.API_KEY,
+      httpOptions: {
+        baseUrl: "https://gemini-proxy.santiagoliu333.workers.dev",
+      },
+    });
     const response = await ai.models.generateContent({
-      model: 'gemini-2.5-flash',
+      model: "gemini-2.5-flash",
       contents: prompt,
       config: {
         systemInstruction: SYSTEM_INSTRUCTION,
@@ -43,7 +49,7 @@ export const generateSpiritualCopy = async (prompt: string): Promise<string> => 
 
     const text = response.text;
     if (!text) {
-        throw new Error("Received an empty response from the API.");
+      throw new Error("Received an empty response from the API.");
     }
 
     return text.trim();
