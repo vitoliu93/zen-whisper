@@ -23,7 +23,7 @@ const App: React.FC = () => {
       const result = await generateSpiritualCopy(userInput);
       setGeneratedText(result);
     } catch (err) {
-      setError('Sorry, something went wrong. Please try again.');
+      setError('抱歉，出了点小问题，请稍后再试。');
       console.error(err);
     } finally {
       setIsLoading(false);
@@ -31,21 +31,21 @@ const App: React.FC = () => {
   }, [userInput, isLoading]);
 
   return (
-    <div className="bg-gray-900 min-h-screen flex flex-col items-center justify-center p-4 text-gray-200">
-      <main className="w-full max-w-2xl mx-auto flex flex-col items-center text-center">
-        <header className="mb-8">
-          <div className="flex items-center justify-center gap-3 mb-2">
-            <SparkleIcon className="w-8 h-8 text-cyan-400" />
-            <h1 className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-violet-500">
-              Zen Whisper
+    <div className="min-h-screen bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 flex flex-col items-center justify-center px-4 py-8 text-gray-100">
+      <main className="w-full max-w-2xl mx-auto flex flex-col items-center text-center space-y-8">
+        <header className="space-y-3">
+          <div className="flex items-center justify-center gap-3">
+            <SparkleIcon className="w-9 h-9 text-cyan-400 drop-shadow-[0_0_12px_rgba(34,211,238,0.6)]" />
+            <h1 className="text-3xl sm:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-sky-300 to-violet-400">
+              禅意低语
             </h1>
           </div>
-          <p className="text-gray-400">
-            Share a thought, a feeling, or a question. Receive a quiet reminder.
+          <p className="text-sm sm:text-base text-gray-400 max-w-xl mx-auto">
+            说说你此刻的情绪、困惑或问题，收下一句安静、温柔的小提醒。
           </p>
         </header>
-        
-        <div className="w-full p-6 bg-gray-800/50 rounded-2xl shadow-2xl shadow-black/20 border border-gray-700 backdrop-blur-sm">
+
+        <section className="w-full p-5 sm:p-6 bg-slate-900/70 rounded-2xl shadow-[0_18px_60px_rgba(15,23,42,0.9)] border border-cyan-500/10 backdrop-blur-md">
           <InputArea
             value={userInput}
             onChange={(e) => setUserInput(e.target.value)}
@@ -53,16 +53,12 @@ const App: React.FC = () => {
             isLoading={isLoading}
           />
 
-          <div className="mt-6 min-h-[100px] flex items-center justify-center">
+          <div className="mt-6 min-h-[100px] flex items-center justify-center text-sm sm:text-base">
             {isLoading && <Loader />}
             {error && <p className="text-red-400">{error}</p>}
             {generatedText && <ResultDisplay key={generatedText} text={generatedText} />}
           </div>
-        </div>
-
-        <footer className="mt-12 text-gray-600 text-sm">
-          <p>Powered by Gemini. Crafted for moments of reflection.</p>
-        </footer>
+        </section>
       </main>
     </div>
   );
